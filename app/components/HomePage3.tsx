@@ -9,15 +9,12 @@ const HomePage2 = () => {
         className="text-3xl md:text-4xl text-red-600 mt-4 mb-2 text-center" 
         style={{ fontFamily: "'lacquer', cursive" }}
       >
-        Whispers from the Underworld
+        WHISPERS FROM THE UNDERWORLD
       </h1>
       <div 
         className="relative z-10 text-white p-4 md:p-6 rounded-3xl shadow-lg max-w-6xl w-full"
       >
         <div className="text-center mb-6">
-          <p className="text-sm md:text-base">
-            Indulgences So Good, Even Demons Crave Them
-          </p>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-4">

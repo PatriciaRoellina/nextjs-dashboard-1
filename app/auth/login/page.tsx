@@ -24,10 +24,10 @@ const LoginPage = () => {
     }
 
     if (formData.email.trim() && formData.password.trim()) {
-      if (formData.email !== "2354@gmail.com") {
+      if (formData.email !== "user123") {
         newErrors.email = "Email salah";
       }
-      if (formData.password !== "231712354") {
+      if (formData.password !== "12345") {
         newErrors.password = "Password salah";
       }
     }
@@ -62,13 +62,13 @@ const LoginPage = () => {
         <h2 className="text-5xl font-bold text-center mb-6" style={{ fontFamily: "'lacquer', cursive" }}>Login</h2>
 
         <div className="mb-4">
-          <label className="block text-sm font-semibold">Email</label>
+          <label className="block text-sm font-semibold">Username</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Masukkan Email..."
+            placeholder="Masukkan Username..."
             className="w-full mt-1 p-3 rounded bg-white-800 text-black border border-orange-600"
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
