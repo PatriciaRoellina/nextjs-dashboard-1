@@ -1,5 +1,5 @@
 import "./global.css";
-import { cinzel, lacquer, chilanka } from "./ui/fonts"; // Import semua font
+import { cinzel, lacquer, chilanka } from "./ui/fonts"; 
 
 export default function RootLayout({
   children,
