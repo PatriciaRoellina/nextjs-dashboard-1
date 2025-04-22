@@ -1,0 +1,6 @@
+[submodule "dashboard"]
+    path = dashboard
+    url = https://github.com/username/dashboard.git
+[submodule "pelanggan"]
+    path = pelanggan
+    url = https://github.com/username/pelanggan.git
