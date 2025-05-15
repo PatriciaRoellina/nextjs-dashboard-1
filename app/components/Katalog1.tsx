@@ -129,9 +129,6 @@ export default function Menu() {
           </div>
         </div>
 
-        {loading && <p>Loading products...</p>}
-        {error && <p>Error: {error}</p>}
-
         {/* Produk Grid */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center">
           {visibleProducts.map((product) => (
