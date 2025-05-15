@@ -10,24 +10,8 @@ type Product = {
   name: string;
   price: number;
   image: string;
-  description?: string; // optional
-};
-
-const products: { food: Product[]; drink: Product[] } = {
-  food: [
-    { id: 1, name: "Spiderweb Quesadilla", price: 50000, image: "/spider.jpg", description: "Quesadilla hitam dengan keju meleleh yang membentuk jaring laba-laba. Hati-hati, jangan sampai laba-laba keluar dari dalamnya!" },
-    { id: 2, name: "Bloody Eyeball Bites", price: 30000, image: "/eyeball.jpg", description: "Gigitan bola daging dengan bola mata zaitun hitam, mengeluarkan darah setiap gigitan. Siap-siap terkejut!" },
-    { id: 3, name: "Spooky Ghost Pizza", price: 75000, image: "/pizza.jpg", description: "Pizza dengan keju mozzarella berbentuk hantu yang melayang. Rasakan sensasi dingin di tenggorokan seperti roh yang menuntut balas!"},
-    { id: 4, name: "Witch’s Fingers", price: 20000, image: "/fingers.jpg", description:"Telur setan disulap jadi tatapan horor—mata berdarah yang siap memeriahkan pesta Halloween-mu!" },
-    { id: 9, name: "Buried Alive Bites", price: 25000, image: "/buried.jpg", description: "Kue cokelat yang tampak terkubur di dalam tanah, dengan lapisan brownie yang lembut dan cacing gummy yang menjulur keluar dari dalamnya. Jangan takut, itu hanya rasa manis!"},
-  ],
-  drink: [
-    { id: 5, name: "Bloody Vision", price: 30000, image: "/vision.jpg",description:"Koktail merah menyala berisi 'bola mata' buah dan jelly—minuman segar yang tampak mengerikan tapi nikmat!" },
-    { id: 6, name: "Bloody Elixir", price: 30000, image: "/elixir.jpg", description: "Ramuan merah pekat yang menggoda, terbuat dari jus delima yang memiliki kekuatan gelap. Hati-hati, sekali menyesap, kamu takkan bisa berhenti!" },
-    { id: 7, name: "Graveyard Pudding", price: 25000, image: "/puding.jpg", description: "Puding gelap dengan rasa mencekam, siap membawa Anda ke dunia yang tak terlihat"},
-    { id: 8, name: "Haunted Ghost Shake", price: 28000, image: "/ghost.jpg", description: "Minuman es krim yang membawa sensasi arwah gentayangan, menambah misteri di setiap tegukan. Hati-Hati kamu bisa didatangi oleh arwah gentayangan!" },
-    { id: 10, name: "Vampire Blood Bags", price: 40000, image: "/vampire.jpg", description: "Minuman darah vampir yang penuh misteri, menggetarkan dalam setiap tetesnya. Berani coba?" },
-  ],
+  description?: string;
+  category: "food" | "drink"; // dari DB ada kategori
 };
 
 export default function Menu() {
@@ -36,16 +20,31 @@ export default function Menu() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=Lacquer&family=Creepster&family=Chilanka&display=swap=Baloo+2&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
+    // Ambil data produk dari API
+    fetch('/api/products')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch products');
+        return res.json();
+      })
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
+  // Gabungkan filter kategori dari produk API
   const allProducts = selectedCategory === null
-    ? [...products.food, ...products.drink]
-    : products[selectedCategory];
+    ? products
+    : products.filter(product => product.category === selectedCategory);
 
   const handleCategoryChange = (category: "food" | "drink" | null) => {
     setSelectedCategory(category);
@@ -64,7 +63,6 @@ export default function Menu() {
 
   const visibleProducts = searchQuery ? filteredProducts : allProducts.slice(0, visibleCount);
   const [selectedProductDetail, setSelectedProductDetail] = useState<Product | null>(null);
-
 
   return (
     <div className="relative min-h-screen text-white flex flex-col items-center"
@@ -91,49 +89,53 @@ export default function Menu() {
 
       {/* Body */}
       <div className="min-h-screen p-10 text-white mt-24 w-full">
-          <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8">
-      {/* Kategori */}
-      <div className="text-lg font-semibold flex space-x-4 mb-4 md:mb-0" style={{ fontFamily: "Lacquer, cursive", fontSize: "40px" }}>
-        <button
-          className={`cursor-pointer ${selectedCategory === 'food' ? 'text-orange-500 font-bold' : 'text-white'} transition duration-300`}
-          onClick={() => handleCategoryChange("food")}
-        >
-          Food
-        </button>
-        <span className="text-gray-400">|</span>
-        <button
-          className={`cursor-pointer ${selectedCategory === 'drink' ? 'text-orange-500 font-bold' : 'text-white'} transition duration-300`}
-          onClick={() => handleCategoryChange("drink")}
-        >
-          Drink
-        </button>
-      </div>
+        <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8">
+          {/* Kategori */}
+          <div className="text-lg font-semibold flex space-x-4 mb-4 md:mb-0" style={{ fontFamily: "Lacquer, cursive", fontSize: "40px" }}>
+            <button
+              className={`cursor-pointer ${selectedCategory === 'food' ? 'text-orange-500 font-bold' : 'text-white'} transition duration-300`}
+              onClick={() => handleCategoryChange("food")}
+            >
+              Food
+            </button>
+            <span className="text-gray-400">|</span>
+            <button
+              className={`cursor-pointer ${selectedCategory === 'drink' ? 'text-orange-500 font-bold' : 'text-white'} transition duration-300`}
+              onClick={() => handleCategoryChange("drink")}
+            >
+              Drink
+            </button>
+          </div>
 
-      {/* Search */}
-      <div className="flex justify-end w-full md:w-auto">
-        <div className="relative w-[320px] flex items-center">
-          <input
-            type="text"
-            placeholder="Search products........"
-            className="w-full h-[40px] pl-12 bg-white rounded-full shadow-lg text-lg outline-none"
-            style={{ fontFamily: "'Chilanka', cursive", color: '#8FAFBC', fontSize: '15px' }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleSearch}
-          />
-          {!searchQuery && (
-            <FiSearch
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              size={20}
-            />
-          )}
+          {/* Search */}
+          <div className="flex justify-end w-full md:w-auto">
+            <div className="relative w-[320px] flex items-center">
+              <input
+                type="text"
+                placeholder="Search products........"
+                className="w-full h-[40px] pl-12 bg-white rounded-full shadow-lg text-lg outline-none"
+                style={{ fontFamily: "'Chilanka', cursive", color: '#8FAFBC', fontSize: '15px' }}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
+              />
+              {!searchQuery && (
+                <FiSearch
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  size={20}
+                />
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+
+        {loading && <p>Loading products...</p>}
+        {error && <p>Error: {error}</p>}
+
         {/* Produk Grid */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 justify-items-center">
           {visibleProducts.map((product) => (
-           <div key={product.id} className="text-center relative cursor-pointer" onClick={() => setSelectedProductDetail(product)}>
+            <div key={product.id} className="text-center relative cursor-pointer" onClick={() => setSelectedProductDetail(product)}>
               <div
                 className="bg-black bg-opacity-40 p-4 rounded-lg flex flex-col"
                 style={{
@@ -168,6 +170,7 @@ export default function Menu() {
             </div>
           ))}
         </div>
+
         {selectedProductDetail && (
           <div className="fixed inset-0 bg-black bg-opacity-70 z-[1000] flex items-center justify-center px-4">
             <div className="bg-[#0E1A2B] rounded-xl max-w-md w-full p-6 relative text-white shadow-lg" style={{ boxShadow: "0 0 15px #B8860B" }}>
@@ -198,6 +201,7 @@ export default function Menu() {
             </div>
           </div>
         )}
+
         {/* Tombol Show More */}
         {visibleCount < allProducts.length && (
           <div className="mt-10 text-center">
@@ -226,27 +230,15 @@ export default function Menu() {
               <Image
                 src="/profil.jpg"
                 alt="Profile Picture"
-                width={70}
-                height={70}
-                className="rounded-full border-4 border-yellow-600 mb-3"
+                width={100}
+                height={100}
+                className="rounded-full"
               />
-              <h2 style={{ fontFamily: "'Chilanka', cursive", fontSize: "24px", color: "#8FAFBC" }}>
-                Marklee
-              </h2>
-              <p className="text-sm mb-4" style={{ color: "#8FAFBC" }}>
-                2312311@gmail.com
+              <h1 className="text-2xl font-semibold mt-4">Tiara Rachmita</h1>
+              <p className="text-[#8FAFBC] mt-2">Fresh Graduate Informatics Engineering</p>
+              <p className="text-center mt-4 text-[#8FAFBC]">
+                Salam Kenal! Terima kasih sudah mampir. Aku senang sekali bisa berbagi menu dan info menarik buat kamu.
               </p>
-              <div className="mt-2 mb-4">
-                <button
-                  onClick={() => {
-                    alert("Logged out!");
-                    setIsProfileOpen(false);
-                  }}
-                  className="bg-red-700 hover:bg-red-800 px-4 py-1.5 text-black rounded-full text-xs font-semibold"
-                >
-                  LOGOUT
-                </button>
-              </div>
             </div>
           </div>
         )}
