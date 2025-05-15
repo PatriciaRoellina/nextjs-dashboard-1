@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-import { lacquer } from "@/app/ui/fonts";
 
 const HomePage2 = () => {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-black to-red-900 flex flex-col items-center py-12 px-4">
+    <div className="min-h-screen w-full flex flex-col items-center py-12 px-4">
       {/* Judul */}
       <div
         className="text-center text-white mb-10 max-w-md"
@@ -21,7 +20,14 @@ const HomePage2 = () => {
       {/* Konten Produk */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
         {/* Item 1 */}
-        <div className="bg-black bg-opacity-40 p-3 rounded-2xl shadow-md text-white flex flex-col items-center">
+        <div 
+          className="p-3 rounded-2xl shadow-md text-white flex flex-col items-center"
+          style={{
+            minHeight: "400px", // kamu bisa tambah ini
+            width: "350px",
+            background: "rgba(0, 0, 0, 0.4)"
+          }}
+        >
           <div className="rounded-xl overflow-hidden shadow-lg w-[220px] h-[220px]">
             <Image
               src="/minuman.jpg"
@@ -31,7 +37,7 @@ const HomePage2 = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="bg-red-600 mt-3 px-4 py-1.5 rounded-full text-sm font-semibold text-center w-full">
+          <div className="bg-red-600 mt-3 px-4 py-1.5 rounded-full text-sm font-semibold text-center w-[200px]">
             Bloody Vision - Rp. 30.000
           </div>
           <p className="mt-1 text-center text-xs px-1">
@@ -40,7 +46,14 @@ const HomePage2 = () => {
         </div>
 
         {/* Item 2 */}
-        <div className="bg-black bg-opacity-40 p-3 rounded-2xl shadow-md text-white flex flex-col items-center">
+        <div 
+          className="p-3 rounded-2xl shadow-md text-white flex flex-col items-center"
+          style={{
+            minHeight: "400px", // kamu bisa tambah ini
+            width: "350px",
+            background: "rgba(0, 0, 0, 0.4)"
+          }}
+        >
           <div className="rounded-xl overflow-hidden shadow-lg w-[220px] h-[220px]">
             <Image
               src="/telur.jpg"
@@ -50,7 +63,7 @@ const HomePage2 = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="bg-red-600 mt-3 px-4 py-1.5 rounded-full text-sm font-semibold text-center w-full">
+          <div className="bg-red-600 mt-3 px-4 py-1.5 rounded-full text-sm font-semibold text-center w-[200px]">
             Witch's Fingers - Rp. 30.000
           </div>
           <p className="mt-1 text-center text-xs px-1">
