@@ -2,21 +2,30 @@ import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
-async function listInvoices() {
-	const data = await sql`
-    SELECT invoices.amount, customers.name
-    FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
-    WHERE invoices.amount = 666;
+async function listData() {
+  // Ambil data users
+  const usersData = await sql`
+    SELECT id, name, username, role FROM users;
   `;
 
-	return data;
+  // Ambil data customers
+  const customersData = await sql`
+    SELECT id, name, email, role FROM customers;
+  `;
+
+  // Ambil data products
+  const productsData = await sql`
+    SELECT id, name, price, image, description FROM products;
+  `;
+
+  return { users: usersData, customers: customersData, products: productsData };
 }
 
 export async function GET() {
   try {
-  	return Response.json(await listInvoices());
+    const result = await listData();
+    return Response.json(result);
   } catch (error) {
-  	return Response.json({ error }, { status: 500 });
+    return Response.json({ error }, { status: 500 });
   }
 }

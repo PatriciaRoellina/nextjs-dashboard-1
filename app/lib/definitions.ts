@@ -7,13 +7,15 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  role: string
 };
 
 export type Customer = {
   id: string;
   name: string;
   email: string;
-  image_url: string;
+  password: string;
+  role: string
 };
 
 export type Invoice = {

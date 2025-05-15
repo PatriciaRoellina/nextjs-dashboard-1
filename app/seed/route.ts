@@ -87,11 +87,11 @@ async function seedProducts() {
 
 export async function GET() {
   try {
-    const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedProducts()
-    ]);
+    const result = await sql.begin(async (sql) => {
+      await seedUsers();
+      await seedCustomers();
+      await seedProducts();
+    });
 
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
