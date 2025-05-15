@@ -1,118 +1,167 @@
 import Image from 'next/image';
-import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-import { fetchFilteredInvoices } from '@/app/lib/data';
 
-export default async function InvoicesTable({
-  query,
-  currentPage,
-}: {
-  query: string;
-  currentPage: number;
-}) {
-  const invoices = await fetchFilteredInvoices(query, currentPage);
+type Customer = {
+  id: string | number;
+  name: string;
+  email: string;
+  image_url?: string;
+};
+
+type User = {
+  id: string | number;
+  name: string;
+  username: string;
+  role: string;
+};
+
+type Product = {
+  id: string | number;
+  name: string;
+  price: number;
+  description: string;
+  image?: string;
+};
+
+type DataType = 'customer' | 'user' | 'product';
+
+interface DataTableProps {
+  data: Customer[] | User[] | Product[];
+  type: DataType;
+  loading?: boolean;
+  error?: string;
+}
+
+export default function DataTable({ data, type, loading, error }: DataTableProps) {
+  if (loading) return <p className="p-4">Loading...</p>;
+  if (error) return <p className="p-4 text-red-500">Error: {error}</p>;
+  if (!data || data.length === 0) return <p className="p-4">No data found.</p>;
 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
+          {/* Mobile */}
           <div className="md:hidden">
-            {invoices?.map((invoice) => (
-              <div
-                key={invoice.id}
-                className="mb-2 w-full rounded-md bg-white p-4"
-              >
-                <div className="flex items-center justify-between border-b pb-4">
-                  <div>
-                    <div className="mb-2 flex items-center">
+            {data.map((item: any) => (
+              <div key={item.id} className="mb-2 w-full rounded-md bg-white p-4">
+                {type === 'customer' && (
+                  <div className="flex items-center gap-3 border-b pb-4">
+                    {item.image_url ? (
                       <Image
-                        src={invoice.image_url}
-                        className="mr-2 rounded-full"
+                        src={item.image_url}
+                        alt={item.name}
                         width={28}
                         height={28}
-                        alt={`${invoice.name}'s profile picture`}
+                        className="rounded-full"
                       />
-                      <p>{invoice.name}</p>
+                    ) : (
+                      <div className="w-7 h-7 bg-gray-300 rounded-full" />
+                    )}
+                    <div>
+                      <p>{item.name}</p>
+                      <p className="text-sm text-gray-500">{item.email}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{invoice.email}</p>
                   </div>
-                  <InvoiceStatus status={invoice.status} />
-                </div>
-                <div className="flex w-full items-center justify-between pt-4">
-                  <div>
-                    <p className="text-xl font-medium">
-                      {formatCurrency(invoice.amount)}
-                    </p>
-                    <p>{formatDateToLocal(invoice.date)}</p>
+                )}
+
+                {type === 'user' && (
+                  <div className="border-b pb-4">
+                    <p className="font-semibold">{item.name}</p>
+                    <p className="text-sm text-gray-500">@{item.username}</p>
+                    <p className="text-xs text-gray-400 italic">Role: {item.role}</p>
                   </div>
-                  <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} />
+                )}
+
+                {type === 'product' && (
+                  <div className="flex items-center gap-3 border-b pb-4">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={28}
+                        height={28}
+                        className="rounded-md"
+                      />
+                    ) : (
+                      <div className="w-7 h-7 bg-gray-300 rounded-md" />
+                    )}
+                    <div>
+                      <p className="font-semibold">{item.name}</p>
+                      <p className="text-sm">{item.description}</p>
+                      <p className="text-sm font-medium">
+                        {item.price.toLocaleString('id-ID', {
+                          style: 'currency',
+                          currency: 'IDR',
+                        })}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>
+
+          {/* Desktop */}
           <table className="hidden min-w-full text-gray-900 md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Email
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Date
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Status
-                </th>
-                <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Edit</span>
-                </th>
+                {type === 'customer' && (
+                  <>
+                    <th className="px-6 py-5 font-medium">Name</th>
+                    <th className="px-3 py-5 font-medium">Email</th>
+                  </>
+                )}
+                {type === 'user' && (
+                  <>
+                    <th className="px-6 py-5 font-medium">Name</th>
+                    <th className="px-3 py-5 font-medium">Username</th>
+                    <th className="px-3 py-5 font-medium">Role</th>
+                  </>
+                )}
+                {type === 'product' && (
+                  <>
+                    <th className="px-6 py-5 font-medium">Name</th>
+                    <th className="px-3 py-5 font-medium">Description</th>
+                    <th className="px-3 py-5 font-medium">Price</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody className="bg-white">
-              {invoices?.map((invoice) => (
+              {data.map((item: any) => (
                 <tr
-                  key={invoice.id}
-                  className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+                  key={item.id}
+                  className="border-b text-sm last-of-type:border-none
+                  [&:first-child>td:first-child]:rounded-tl-lg
+                  [&:first-child>td:last-child]:rounded-tr-lg
+                  [&:last-child>td:first-child]:rounded-bl-lg
+                  [&:last-child>td:last-child]:rounded-br-lg"
                 >
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={invoice.image_url}
-                        className="rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${invoice.name}'s profile picture`}
-                      />
-                      <p>{invoice.name}</p>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {invoice.email}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatCurrency(invoice.amount)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatDateToLocal(invoice.date)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    <InvoiceStatus status={invoice.status} />
-                  </td>
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} />
-                    </div>
-                  </td>
+                  {type === 'customer' && (
+                    <>
+                      <td className="whitespace-nowrap py-3 px-6">{item.name}</td>
+                      <td className="whitespace-nowrap py-3 px-3">{item.email}</td>
+                    </>
+                  )}
+                  {type === 'user' && (
+                    <>
+                      <td className="whitespace-nowrap py-3 px-6">{item.name}</td>
+                      <td className="whitespace-nowrap py-3 px-3">@{item.username}</td>
+                      <td className="whitespace-nowrap py-3 px-3">{item.role}</td>
+                    </>
+                  )}
+                  {type === 'product' && (
+                    <>
+                      <td className="whitespace-nowrap py-3 px-6">{item.name}</td>
+                      <td className="py-3 px-3 max-w-xs">{item.description}</td>
+                      <td className="whitespace-nowrap py-3 px-3">
+                        {item.price.toLocaleString('id-ID', {
+                          style: 'currency',
+                          currency: 'IDR',
+                        })}
+                      </td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>
