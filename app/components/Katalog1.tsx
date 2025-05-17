@@ -11,7 +11,7 @@ type Product = {
   price: number;
   image: string;
   description?: string;
-  category: "food" | "drink"; // dari DB ada kategori
+  category: "food" | "drink";
 };
 
 export default function Menu() {
@@ -41,7 +41,7 @@ export default function Menu() {
       });
   }, []);
 
-  // Gabungkan filter kategori dari produk API
+  // Gabung filter kategori dari produk API
   const allProducts = selectedCategory === null
     ? products
     : products.filter(product => product.category === selectedCategory);
@@ -90,6 +90,7 @@ export default function Menu() {
       {/* Body */}
       <div className="min-h-screen p-10 text-white mt-24 w-full">
         <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-8">
+          
           {/* Kategori */}
           <div className="text-lg font-semibold flex space-x-4 mb-4 md:mb-0" style={{ fontFamily: "Lacquer, cursive", fontSize: "40px" }}>
             <button
@@ -212,33 +213,50 @@ export default function Menu() {
           </div>
         )}
 
-        {/* Profile Popup */}
-        {isProfileOpen && (
-          <div className="fixed top-[90px] left-6 bg-[#0E1A2B] text-white rounded-xl shadow-lg px-6 w-80 z-[999]"
-            style={{ boxShadow: '0 0 10px #B8860B' }}
+        {/* Profile Dropdown */}
+      {isProfileOpen && (
+        <div className="fixed top-[90px] left-6 bg-[#0E1A2B] text-white rounded-xl shadow-lg px-6 w-80 z-[999]"
+          style={{ boxShadow: '0 0 10px #B8860B' }}
+        >
+          <button
+            onClick={() => setIsProfileOpen(false)}
+            className="absolute top-2 right-2 text-3xl font-bold text-gray-300 hover:text-white"
           >
-            <button
-              onClick={() => setIsProfileOpen(false)}
-              className="absolute top-2 right-2 text-3xl font-bold text-gray-300 hover:text-white"
+            ✕
+          </button>
+          <div className="flex flex-col items-center mt-6">
+            <Image
+              src="/profil.jpg"
+              alt="Profile Picture"
+              width={70}
+              height={70}
+              className="rounded-full border-4 border-yellow-600 mb-3"
+            />
+            <h2 
+              style={{ fontFamily: "'Chilanka', cursive", fontSize: "24px", color: "#8FAFBC" }}
             >
-              ✕
-            </button>
-            <div className="flex flex-col items-center mt-6">
-              <Image
-                src="/profil.jpg"
-                alt="Profile Picture"
-                width={100}
-                height={100}
-                className="rounded-full"
-              />
-              <h1 className="text-2xl font-semibold mt-4">Tiara Rachmita</h1>
-              <p className="text-[#8FAFBC] mt-2">Fresh Graduate Informatics Engineering</p>
-              <p className="text-center mt-4 text-[#8FAFBC]">
-                Salam Kenal! Terima kasih sudah mampir. Aku senang sekali bisa berbagi menu dan info menarik buat kamu.
-              </p>
+              Marklee
+            </h2>
+            <p 
+              className="text-sm mb-4" 
+              style={{ color: "#8FAFBC" }}
+            >
+              2312311@gmail.com
+            </p>
+            <div className="mt-2 mb-4">
+              <button
+                onClick={() => {
+                  alert("Logged out!");
+                  setIsProfileOpen(false);
+                }}
+                className="bg-red-700 hover:bg-red-800 px-4 py-1.5 text-black rounded-full text-xs font-semibold"
+              >
+                LOGOUT
+              </button>
             </div>
           </div>
-        )}
+        </div>
+      )}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const pool = new Pool({
 export async function GET() {
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM products'); // <-- ganti ke 'products'
+    const result = await client.query('SELECT * FROM products');
     client.release();
 
     return NextResponse.json(result.rows);
