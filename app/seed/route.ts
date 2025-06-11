@@ -68,9 +68,9 @@ async function seedProducts() {
     );
   `;
 
-  const foodProducts = products.food.map((product) => ({ ...product }));
-  const drinkProducts = products.drink.map((product) => ({ ...product }));
-  const allProducts = [...foodProducts, ...drinkProducts];
+  // const foodProducts = products.food.map((product) => ({ ...product }));
+  // const drinkProducts = products.drink.map((product) => ({ ...product }));
+  // const allProducts = [...foodProducts, ...drinkProducts];
 
   const insertedProducts = await Promise.all(
     allProducts.map((product) =>
