@@ -9,28 +9,28 @@ import { lacquer, chilanka } from "@/app/ui/fonts";
 
 const LoginPage = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ name: "", password: "" });
+  const [errors, setErrors] = useState({ name: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
-    const newErrors = { email: "", password: "" };
+    const newErrors = { name: "", password: "" };
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email tidak boleh kosong";
+    if (!formData.name.trim()) {
+      newErrors.name = "Username tidak boleh kosong";
     }
     if (!formData.password.trim()) {
       newErrors.password = "Password tidak boleh kosong";
     }
 
-    if (formData.email.trim() && formData.password.trim()) {
-      if (formData.email !== "user123") {
-        newErrors.email = "Email salah";
-      }
-      if (formData.password !== "12345") {
-        newErrors.password = "Password salah";
-      }
-    }
+    // if (formData.email.trim() && formData.password.trim()) {
+    //   if (formData.email !== "user123") {
+    //     newErrors.email = "Email salah";
+    //   }
+    //   if (formData.password !== "12345") {
+    //     newErrors.password = "Password salah";
+    //   }
+    // }
 
     setErrors(newErrors);
     return Object.values(newErrors).every((err) => err === "");
@@ -41,15 +41,53 @@ const LoginPage = () => {
   };
   
 
-  const handleLogin = () => {
-    if (validateForm()) {
-      toast.success("Login Berhasil!", {
+  // const handleLogin = () => {
+  //   if (validateForm()) {
+  //     toast.success("Login Berhasil!", {
+  //       position: "top-right",
+  //       icon: <FaCheck className="text-green-400" />,
+  //     });
+  //     router.push("/home");
+  //   }
+  // };
+
+  const handleLogin = async () => {
+  const isValid = validateForm();
+  if (!isValid) return;
+
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        password: formData.password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      toast.success("Login berhasil!", {
         position: "top-right",
         icon: <FaCheck className="text-green-400" />,
       });
       router.push("/home");
+    } else {
+      toast.error(data.message || "Gagal login", {
+        position: "top-right",
+      });
     }
-  };
+  } catch (error) {
+    toast.error("Terjadi kesalahan saat login", {
+      position: "top-right",
+    });
+    console.error("Login error:", error);
+  }
+};
+
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gray-900">
@@ -62,16 +100,16 @@ const LoginPage = () => {
         <h2 className="text-5xl font-bold text-center mb-6" style={{ fontFamily: "'lacquer', cursive" }}>Login</h2>
 
         <div className="mb-4">
-          <label className="block text-sm font-semibold">Username</label>
+          <label className="block text-sm font-semibold">Email</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             placeholder="Masukkan Username..."
             className="w-full mt-1 p-3 rounded bg-white-800 text-black border border-orange-600"
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         </div>
 
         <div className="mb-4 relative">
