@@ -5,13 +5,14 @@ import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import Link from "next/link";
 import { toast } from 'react-toastify';
 import SocialAuth from "@/app/components/SocialAuth";
-import { lacquer, chilanka } from "@/app/ui/fonts";
 
 const LoginPage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({ name: "", password: "" });
   const [errors, setErrors] = useState({ name: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
+
 
   const validateForm = () => {
     const newErrors = { name: "", password: "" };
@@ -22,16 +23,6 @@ const LoginPage = () => {
     if (!formData.password.trim()) {
       newErrors.password = "Password tidak boleh kosong";
     }
-
-    // if (formData.email.trim() && formData.password.trim()) {
-    //   if (formData.email !== "user123") {
-    //     newErrors.email = "Email salah";
-    //   }
-    //   if (formData.password !== "12345") {
-    //     newErrors.password = "Password salah";
-    //   }
-    // }
-
     setErrors(newErrors);
     return Object.values(newErrors).every((err) => err === "");
   };
@@ -39,17 +30,6 @@ const LoginPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
-
-  // const handleLogin = () => {
-  //   if (validateForm()) {
-  //     toast.success("Login Berhasil!", {
-  //       position: "top-right",
-  //       icon: <FaCheck className="text-green-400" />,
-  //     });
-  //     router.push("/home");
-  //   }
-  // };
 
   const handleLogin = async () => {
   const isValid = validateForm();
@@ -61,21 +41,21 @@ const LoginPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: formData.name,
-        password: formData.password,
-      }),
+      body: JSON.stringify(formData),
     });
 
-    const data = await res.json();
+    const data = await res.json(); // Ini harus tetap dijalankan bahkan kalau res.ok === false
 
     if (res.ok && data.success) {
+      localStorage.setItem("username", formData.name);
       toast.success("Login berhasil!", {
         position: "top-right",
         icon: <FaCheck className="text-green-400" />,
       });
+      setLoginError("");
       router.push("/home");
     } else {
+      setLoginError("Username atau Password salah");
       toast.error(data.message || "Gagal login", {
         position: "top-right",
       });
@@ -100,7 +80,7 @@ const LoginPage = () => {
         <h2 className="text-5xl font-bold text-center mb-6" style={{ fontFamily: "'lacquer', cursive" }}>Login</h2>
 
         <div className="mb-4">
-          <label className="block text-sm font-semibold">Email</label>
+          <label className="block text-sm font-semibold">Username</label>
           <input
             type="text"
             name="name"
@@ -123,10 +103,16 @@ const LoginPage = () => {
             className="w-full mt-1 p-3 rounded bg-white-800 text-black border border-orange-600 pr-10"
           />
           <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-9 text-gray-400">
-            {showPassword ? <FaEye />:<FaEyeSlash /> }
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
           </button>
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         </div>
+
+        {loginError && (
+          <div className="text-red-500 text-sm mt-4 text-left">
+            {loginError}
+          </div>
+        )}
 
         <div className="flex justify-between text-sm mb-4">
           <span></span>
