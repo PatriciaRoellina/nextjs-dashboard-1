@@ -64,7 +64,7 @@ const HomePage2 = () => {
         >
           <div className="rounded-xl overflow-hidden shadow-lg w-[220px] h-[220px]">
             <Image
-              src="/telur.jpg"
+              src="/fingers.jpg"
               alt="Witch's Fingers"
               width={220}
               height={220}
