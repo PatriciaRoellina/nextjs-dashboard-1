@@ -40,7 +40,7 @@ const Footer = () => {
       {/* Kanan: Info Sosmed */}
       <div className="text-sm text-right space-y-2 mt-4 md:mt-0">
         <p>
-          <span className="uppercase tracking-widest">Follow us:</span>{" "}
+          <span className="uppercase tracking-widest">Contact us:</span>{" "}
           <span className="text-white">@bitesnbrew</span> | +62 812-1234-2341
         </p>
         <p className="uppercase tracking-widest">

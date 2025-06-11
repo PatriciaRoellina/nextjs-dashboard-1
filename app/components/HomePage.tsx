@@ -1,11 +1,19 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { lacquer, chilanka } from "../ui/fonts";
 import { useState } from "react"; // Import useState
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false); // State untuk membuka/tutup dropdown profil
+  const router = useRouter();
+
+const handleLogout = () => {
+  localStorage.removeItem("userToken");
+  setIsProfileOpen(false);
+  alert("Logged out successfully!");
+  router.push("/auth/login");
+}
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gray-900">
@@ -38,26 +46,14 @@ const HomePage = () => {
           </div>
 
           {/* Menu */}
-          <ul className="flex space-x-8">
-            <li>
-              <Link 
-                href="/home" 
-                className="cursor-pointer hover:text-orange-500 transition duration-300"
-              >
-                HOME
-              </Link>
-            </li>
-            <li>
-              <Link 
-                href="/about" 
-                className="cursor-pointer hover:text-orange-500 transition duration-300"
-              >
-                ABOUT
-              </Link>
-            </li>
-            <li>
-              <Link href="/katalog" className="cursor-pointer hover:text-orange-500 transition duration-300">KATALOG</Link>
-            </li>
+          <ul 
+            className="flex space-x-8" 
+            style= {{fontFamily: "Nosifer"}}
+          >
+            <li><Link href="/home" className="cursor-pointer hover:text-orange-500 transition duration-300">HOME</Link></li>
+            <li><Link href="/about" className="cursor-pointer hover:text-orange-500 transition duration-300">ABOUT</Link></li>
+            <li><Link href="/katalog" className="cursor-pointer hover:text-orange-500 transition duration-300">KATALOG</Link></li>
+            <li><Link href="/contact" className="cursor-pointer hover:text-orange-500 transition duration-300">CONTACT</Link></li>
           </ul>
         </nav>
 
@@ -121,10 +117,7 @@ const HomePage = () => {
             </p>
             <div className="mt-2 mb-4">
               <button
-                onClick={() => {
-                  alert("Logged out!");
-                  setIsProfileOpen(false);
-                }}
+                onClick={handleLogout}
                 className="bg-red-700 hover:bg-red-800 px-4 py-1.5 text-black rounded-full text-xs font-semibold"
               >
                 LOGOUT

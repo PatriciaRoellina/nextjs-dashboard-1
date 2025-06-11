@@ -96,96 +96,127 @@ const customers = [
 ];
 
 const products = [
-    {
-      id: "d3f1b270-fb90-48aa-9312-2d93f4c7e496",
-      name: "Spiderweb Quesadilla",
-      price: 50000,
-      image: "/spider.jpg",
-      description:
-        "Quesadilla hitam dengan keju meleleh yang membentuk jaring laba-laba. Hati-hati, jangan sampai laba-laba keluar dari dalamnya!",
-      category: "food",
+  {
+    id: "d3f1b270-fb90-48aa-9312-2d93f4c7e496",
+    name: "Spiderweb Quesadilla",
+    price: 50000,
+    image: "/spider.jpg",
+    description:
+      "Quesadilla hitam dengan keju meleleh yang membentuk jaring laba-laba. Hati-hati, jangan sampai laba-laba keluar dari dalamnya!",
+    category: {
+      id: 120,
+      name: "food",
     },
-    {
-      id: "3e96e4f5-38d4-4f42-b06f-712b39cb2d42",
-      name: "Bloody Eyeball Bites",
-      price: 30000,
-      image: "/eyeball.jpg",
-      description:
-        "Gigitan bola daging dengan bola mata zaitun hitam, mengeluarkan darah setiap gigitan. Siap-siap terkejut!",
-      category: "food",
+  },
+  {
+    id: "3e96e4f5-38d4-4f42-b06f-712b39cb2d42",
+    name: "Bloody Eyeball Bites",
+    price: 30000,
+    image: "/eyeball.jpg",
+    description:
+      "Gigitan bola daging dengan bola mata zaitun hitam, mengeluarkan darah setiap gigitan. Siap-siap terkejut!",
+    category: {
+      id: 120,
+      name: "food",
     },
-    {
-      id: "33a85ce1-9fd4-4e0b-8f8b-2d71c78b3ab1",
-      name: "Spooky Ghost Pizza",
-      price: 75000,
-      image: "/pizza.jpg",
-      description:
-        "Pizza dengan keju mozzarella berbentuk hantu yang melayang. Rasakan sensasi dingin di tenggorokan seperti roh yang menuntut balas!",
-      category: "food",
+  },
+  {
+    id: "33a85ce1-9fd4-4e0b-8f8b-2d71c78b3ab1",
+    name: "Spooky Ghost Pizza",
+    price: 75000,
+    image: "/pizza.jpg",
+    description:
+      "Pizza dengan keju mozzarella berbentuk hantu yang melayang. Rasakan sensasi dingin di tenggorokan seperti roh yang menuntut balas!",
+    category: {
+      id: 120,
+      name: "food",
     },
-    {
-      id: "62f07602-f0e4-4fe1-94a2-1b680db6cba3",
-      name: "Witch’s Fingers",
-      price: 20000,
-      image: "/fingers.jpg",
-      description:
-        "Telur setan disulap jadi tatapan horor—mata berdarah yang siap memeriahkan pesta Halloween-mu!",
-      category: "food",
+  },
+  {
+    id: "62f07602-f0e4-4fe1-94a2-1b680db6cba3",
+    name: "Witch’s Fingers",
+    price: 20000,
+    image: "/fingers.jpg",
+    description:
+      "Telur setan disulap jadi tatapan horor—mata berdarah yang siap memeriahkan pesta Halloween-mu!",
+    category: {
+      id: 120,
+      name: "food",
     },
-    {
-      id: "beaf9f23-b2be-4f88-88ff-5e9bc9c4be0e",
-      name: "Buried Alive Bites",
-      price: 25000,
-      image: "/makanan.jpg",
-      description:
-        "Kue cokelat yang tampak terkubur di dalam tanah, dengan lapisan brownie yang lembut dan cacing gummy yang menjulur keluar dari dalamnya. Jangan takut, itu hanya rasa manis!",
-      category: "food",
+  },
+  {
+    id: "beaf9f23-b2be-4f88-88ff-5e9bc9c4be0e",
+    name: "Buried Alive Bites",
+    price: 25000,
+    image: "/makanan.jpg",
+    description:
+      "Kue cokelat yang tampak terkubur di dalam tanah, dengan lapisan brownie yang lembut dan cacing gummy yang menjulur keluar dari dalamnya. Jangan takut, itu hanya rasa manis!",
+    category: {
+      id: 120,
+      name: "food",
     },
-    {
-      id: "091af16f-92df-44a2-92cb-93c949d79608",
-      name: "Bloody Vision",
-      price: 30000,
-      image: "/minuman.jpg",
-      description:
-        "Koktail merah menyala berisi 'bola mata' buah dan jelly—minuman segar yang tampak mengerikan tapi nikmat!",
-      category: "drink",
+  },
+  {
+    id: "091af16f-92df-44a2-92cb-93c949d79608",
+    name: "Bloody Vision",
+    price: 30000,
+    image: "/minuman.jpg",
+    description:
+      "Koktail merah menyala berisi 'bola mata' buah dan jelly—minuman segar yang tampak mengerikan tapi nikmat!",
+    category: {
+      id: 121,
+      name: "drink",
     },
-    {
-      id: "6103deac-3a0e-4629-803e-8cce30b4a05c",
-      name: "Bloody Elixir",
-      price: 30000,
-      image: "/elixir.jpg",
-      description:
-        "Ramuan merah pekat yang menggoda, terbuat dari jus delima yang memiliki kekuatan gelap. Hati-hati, sekali menyesap, kamu takkan bisa berhenti!",
-      category: "drink",
+  },
+  {
+    id: "6103deac-3a0e-4629-803e-8cce30b4a05c",
+    name: "Bloody Elixir",
+    price: 30000,
+    image: "/elixir.jpg",
+    description:
+      "Ramuan merah pekat yang menggoda, terbuat dari jus delima yang memiliki kekuatan gelap. Hati-hati, sekali menyesap, kamu takkan bisa berhenti!",
+    category: {
+      id: 121,
+      name: "drink",
     },
-    {
-      id: "3626c1ff-d469-4f3a-b6a9-0ad15d1a1659",
-      name: "Graveyard Pudding",
-      price: 25000,
-      image: "/puding.jpg",
-      description:
-        "Puding gelap dengan rasa mencekam, siap membawa Anda ke dunia yang tak terlihat",
-      category: "drink",
+  },
+  {
+    id: "3626c1ff-d469-4f3a-b6a9-0ad15d1a1659",
+    name: "Graveyard Pudding",
+    price: 25000,
+    image: "/puding.jpg",
+    description:
+      "Puding gelap dengan rasa mencekam, siap membawa Anda ke dunia yang tak terlihat",
+    category: {
+      id: 121,
+      name: "drink",
     },
-    {
-      id: "2d114fb1-4e45-4c1e-83de-84232f67aef1",
-      name: "Haunted Ghost Shake",
-      price: 28000,
-      image: "/ghost.jpg",
-      description:
-        "Minuman es krim yang membawa sensasi arwah gentayangan, menambah misteri di setiap tegukan. Hati-Hati kamu bisa didatangi oleh arwah gentayangan!",
-      category: "drink",
+  },
+  {
+    id: "2d114fb1-4e45-4c1e-83de-84232f67aef1",
+    name: "Haunted Ghost Shake",
+    price: 28000,
+    image: "/ghost.jpg",
+    description:
+      "Minuman es krim yang membawa sensasi arwah gentayangan, menambah misteri di setiap tegukan. Hati-Hati kamu bisa didatangi oleh arwah gentayangan!",
+    category: {
+      id: 121,
+      name: "drink",
     },
-    {
-      id: "f99d46bc-6e76-4211-9db6-98d992ab7897",
-      name: "Vampire Blood Bags",
-      price: 40000,
-      image: "/vampire.jpg",
-      description:
-        "Minuman darah vampir yang penuh misteri, menggetarkan dalam setiap tetesnya. Berani coba?",
-      category: "drink",
+  },
+  {
+    id: "f99d46bc-6e76-4211-9db6-98d992ab7897",
+    name: "Vampire Blood Bags",
+    price: 40000,
+    image: "/vampire.jpg",
+    description:
+      "Minuman darah vampir yang penuh misteri, menggetarkan dalam setiap tetesnya. Berani coba?",
+    category: {
+      id: 121,
+      name: "drink",
     },
+  },
 ];
+
 
 export { users, customers, products };

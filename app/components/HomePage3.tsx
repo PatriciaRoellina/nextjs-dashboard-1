@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { lacquer, chilanka } from "@/app/ui/fonts";
 
 const HomePage2 = () => {
   return (
@@ -10,8 +9,11 @@ const HomePage2 = () => {
         background: "rgba(0, 0, 0, 0.5)"
       }}>
       <h1 
-        className="text-3xl md:text-4xl text-red-600 mt-4 mb-2 text-center" 
-        style={{ fontFamily: "'lacquer', cursive" }}
+        className="text-2xl md:text-4xl text-red-600 mt-4 mb-2 text-center" 
+        style={{ 
+                color: '#800000',
+                textShadow: "2px 2px 4px rgba(255, 69, 0, 0.7)", 
+                fontFamily: "Nosifer" }}
       >
         Whispers from the Underworld
       </h1>
@@ -19,7 +21,9 @@ const HomePage2 = () => {
         className="relative z-10 text-white p-4 md:p-6 rounded-3xl shadow-lg max-w-6xl w-full"
       >
         <div className="text-center mb-6">
-          <p className="text-sm md:text-base">
+          <p 
+          className="text-base font-light"
+          style={{fontFamily: "lacquer"}}>
             Indulgences So Good, Even Demons Crave Them
           </p>
         </div>
