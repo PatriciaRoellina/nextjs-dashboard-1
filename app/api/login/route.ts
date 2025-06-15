@@ -20,8 +20,8 @@ export async function POST(request: Request) {
 
     // Cek ke database
     const result = await pool.query(
-      'SELECT * FROM "Customer" WHERE LOWER("name") = LOWER($1) AND password = $2',
-      [name, password]
+      'SELECT * FROM "Customer" WHERE LOWER("name") = LOWER($1)',
+      [name]
     );
 
     if (result.rows.length > 0) {
