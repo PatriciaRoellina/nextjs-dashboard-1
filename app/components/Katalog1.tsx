@@ -274,6 +274,7 @@ import Image from "next/image";
 import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // Type untuk produk
 interface Product {
@@ -305,12 +306,12 @@ export default function Menu() {
 
   // Set navigasi aktif berdasarkan rute
   useEffect(() => {
-    const path = router.pathname || window.location.pathname;
+    const path = usePathname;
     if (path === "/home") setSelectedNav("home");
     else if (path === "/about") setSelectedNav("about");
     else if (path === "/katalog") setSelectedNav("katalog");
     else if (path === "/contact") setSelectedNav("contact");
-  }, [router.pathname]);
+  }, [usePathname]);
 
   // Fetch produk
   useEffect(() => {
