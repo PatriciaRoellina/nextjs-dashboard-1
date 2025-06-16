@@ -9,9 +9,10 @@ const HomePage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("home");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("home");
 
-  const handleMenuClick = (category) => {
+  type Category = "home" | "about" | "katalog" | "contact";
+  const handleMenuClick = (category: Category) => {
     setSelectedCategory(category);
   };
 
