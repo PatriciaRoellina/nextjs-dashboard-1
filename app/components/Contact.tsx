@@ -8,6 +8,11 @@ import Image from 'next/image'
 export default function Contact() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const router = useRouter()
+  const [selectedCategory, setSelectedCategory] = useState("contact");
+
+  const handleMenuClick = (category) => {
+    setSelectedCategory(category);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('userToken')
@@ -35,15 +40,47 @@ export default function Contact() {
         </div>
 
         {/* Menu */}
-        <ul 
-            className="flex space-x-8" 
+          <ul 
+            className="flex space-x-8"
             style= {{fontFamily: "Nosifer"}}
-          >
-          <li><Link href="/home" className="cursor-pointer hover:text-orange-500 transition duration-300">HOME</Link></li>
-          <li><Link href="/about" className="cursor-pointer hover:text-orange-500 transition duration-300">ABOUT</Link></li>
-          <li><Link href="/katalog" className="cursor-pointer hover:text-orange-500 transition duration-300">KATALOG</Link></li>
-          <li><Link href="/contact" className="cursor-pointer hover:text-orange-500 transition duration-300">CONTACT</Link></li>
-        </ul>
+            >
+            <li>
+              <Link 
+                href="/home" 
+                onClick={() => handleMenuClick("home")} // Set kategori aktif saat diklik
+                className={`cursor-pointer ${selectedCategory === "home" ? "text-orange-500 font-bold" : "text-white"} hover:text-orange-500 transition duration-300`}
+              >
+                HOME
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/about" 
+                onClick={() => handleMenuClick("about")} // Set kategori aktif saat diklik
+                className={`cursor-pointer ${selectedCategory === "about" ? "text-orange-500 font-bold" : "text-white"} hover:text-orange-500 transition duration-300`}
+              >
+                ABOUT
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/katalog" 
+                onClick={() => handleMenuClick("katalog")} // Set kategori aktif saat diklik
+                className={`cursor-pointer ${selectedCategory === "katalog" ? "text-orange-500 font-bold" : "text-white"} hover:text-orange-500 transition duration-300`}
+              >
+                KATALOG
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/contact" 
+                onClick={() => handleMenuClick("contact")}
+                className={`cursor-pointer ${selectedCategory === "contact" ? "text-orange-500 font-bold" : "text-white"} hover:text-orange-500 transition duration-300`}
+                >
+                  CONTACT
+                </Link>
+            </li>
+          </ul>
       </nav>
 
       {/* Profile Dropdown */}
