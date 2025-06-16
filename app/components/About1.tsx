@@ -15,7 +15,7 @@ const handleLogout = () => {
   alert("Logged out successfully!");
   router.push("/auth/login");
 }
-type Category = "about";
+type Category = "home" | "about" | "katalog" | "contact";
 const handleMenuClick = (category: Category) => {
     setSelectedCategory(category);
   };
