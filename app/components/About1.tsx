@@ -1,14 +1,13 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { lacquer, chilanka } from "../ui/fonts";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const About1 = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false); // State untuk membuka/tutup dropdown profil
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("about");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("about");
 
 const handleLogout = () => {
   localStorage.removeItem("userToken");
@@ -16,8 +15,8 @@ const handleLogout = () => {
   alert("Logged out successfully!");
   router.push("/auth/login");
 }
-
-const handleMenuClick = (category) => {
+type Category = "about";
+const handleMenuClick = (category: Category) => {
     setSelectedCategory(category);
   };
 
