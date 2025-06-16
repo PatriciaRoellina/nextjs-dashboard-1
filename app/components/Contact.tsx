@@ -8,9 +8,10 @@ import Image from 'next/image'
 export default function Contact() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const router = useRouter()
-  const [selectedCategory, setSelectedCategory] = useState("contact");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("contact");
 
-  const handleMenuClick = (category) => {
+  type Category = "home" | "about" | "katalog" | "contact";
+  const handleMenuClick = (category: Category) => {
     setSelectedCategory(category);
   };
 
