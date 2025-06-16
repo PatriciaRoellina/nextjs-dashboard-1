@@ -306,12 +306,12 @@ export default function Menu() {
 
   // Set navigasi aktif berdasarkan rute
   useEffect(() => {
-    const path = usePathname();
+    const path = usePathname;
     if (path === "/home") setSelectedNav("home");
     else if (path === "/about") setSelectedNav("about");
     else if (path === "/katalog") setSelectedNav("katalog");
     else if (path === "/contact") setSelectedNav("contact");
-  }, []);
+  }, [usePathname]);
 
   // Fetch produk
   useEffect(() => {
