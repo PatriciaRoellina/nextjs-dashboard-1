@@ -11,11 +11,11 @@ Website ini dirancang dengan tema horor yang mengarah pada suasana Halloween. El
 
 Link Github:
 - https://github.com/PatriciaRoellina/nextjs-dashboard-1 (Pembeli)
-- https://github.com/NiKomangDesyWulandari-2551/nextjs-dashboardadmin.git  (Admin)
+- https://github.com/NiKomangDesyWulandari-2551/nextjs-dashboardadmin  (Admin)
 
 Link Deploy:
 - https://nextjs-dashboard-1-taupe-kappa.vercel.app/ (Pembeli)
-- https://admin-pov.vercel.app/auth/login (Admin)
+- https://nextjs-dashboardadminfetch.vercel.app/ (Admin)
 
 Penjabaran:
 - Magdalena D G Luna Sari / 231712525
@@ -30,4 +30,8 @@ Mengerjakan bagian pembeli kecuali katalog, figma dan deploy
 
 Username & Password Pembeli:
 Username: Vlad Dracul
+Password: 12345
+
+Username & Password Admin:
+Username: Admin123
 Password: 12345
