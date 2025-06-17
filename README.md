@@ -10,11 +10,11 @@ Deskripsi Singkat:
 Website ini dirancang dengan tema horor yang mengarah pada suasana Halloween. Elemen visual seperti ikon labu digunakan untuk memperkuat kesan menyeramkan. Kontennya menampilkan berbagai snack dan minuman bertema horor yang menjadi ciri khas dari konsep kafe yang diangkat.
 
 Link Github:
-- https://github.com/lunana2525/nextjs-dashboard.git (Admin)
+- https://github.com/lunana2525/nextjs-dashboard.git (Pembeli)
 - https://github.com/NiKomangDesyWulandari-2551/nextjs-dashboardadmin.git  (Admin)
 
 Link Deploy:
-- https://pembeli-pov.vercel.app/ (Pembeli)
+- https://nextjs-dashboard-1-taupe-kappa.vercel.app/ (Pembeli)
 - https://admin-pov.vercel.app/auth/login (Admin)
 
 Penjabaran:
