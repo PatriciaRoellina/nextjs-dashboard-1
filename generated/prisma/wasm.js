@@ -120,26 +120,68 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  email: 'email',
-  password: 'password'
+  price: 'price',
+  image: 'image',
+  description: 'description',
+  categoryId: 'categoryId',
+  stock: 'stock',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
 };
 
 exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  image_url: 'image_url'
+  password: 'password',
+  role: 'role'
 };
 
-exports.Prisma.ProductScalarFieldEnum = {
+exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  price: 'price',
-  image: 'image',
-  description: 'description'
+  username: 'username',
+  password: 'password',
+  role: 'role'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  createdAt: 'createdAt',
+  totalAmount: 'totalAmount'
+};
+
+exports.Prisma.InvoiceItemScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  productId: 'productId',
+  quantity: 'quantity',
+  price: 'price'
+};
+
+exports.Prisma.RevenueScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  total: 'total',
+  invoiceId: 'invoiceId'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  buyerName: 'buyerName',
+  date: 'date',
+  totalPrice: 'totalPrice'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,11 +194,29 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.ProductStatus = exports.$Enums.ProductStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID'
+};
+
+exports.Role = exports.$Enums.Role = {
+  admin: 'admin',
+  customer: 'customer'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User',
+  Product: 'Product',
+  Category: 'Category',
   Customer: 'Customer',
-  Product: 'Product'
+  Admin: 'Admin',
+  Invoice: 'Invoice',
+  InvoiceItem: 'InvoiceItem',
+  Revenue: 'Revenue',
+  Transaction: 'Transaction'
 };
 
 /**
