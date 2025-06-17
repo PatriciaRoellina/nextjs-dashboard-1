@@ -1,3 +1,4 @@
+"use client";
 import FoodDrink from '../components/Katalog1';
 import Footer from '../components/Footer';
 
