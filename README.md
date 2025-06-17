@@ -26,3 +26,8 @@ Mengerjakan bagian Admin, figma dan deploy
 
 - Patricia Audrey Roellina / 231712354
 Mengerjakan bagian pembeli kecuali katalog, figma dan deploy
+
+
+Username & Password Pembeli:
+Username: Vlad Dracul
+Password: 12345
